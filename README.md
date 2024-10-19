@@ -1,6 +1,6 @@
 # Covalent
 
-# Fixs Error Log websocket
+# Fixs Error Logs websocket
 
 
 # Hapus Instalan lama
