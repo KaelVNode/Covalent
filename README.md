@@ -16,6 +16,11 @@ docker system prune -a
 ```
 rm -rf  ewm-das
 ```
+instal IPFS
+```
+wget https://dist.ipfs.tech/kubo/v0.30.0/kubo_v0.30.0_linux-amd64.tar.gz && tar -xvzf kubo_v0.30.0_linux-amd64.tar.gz && sudo bash kubo/install.sh
+```
+
 # instal
 ```
 git clone https://github.com/covalenthq/ewm-das
