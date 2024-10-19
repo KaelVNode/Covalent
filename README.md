@@ -16,7 +16,7 @@ docker system prune -a
 ```
 rm -rf  ewm-das
 ```
-# instaler
+# instal
 ```
 git clone https://github.com/covalenthq/ewm-das
 ```
