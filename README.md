@@ -1,6 +1,6 @@
 # Covalent
 
-
+Hapus Instalan lama
 ```
 docker stop light-client && docker rm light-client
 ```
@@ -13,7 +13,7 @@ docker system prune -a
 ```
 rm -rf  ewm-das
 ```
-
+instaler
 ```
 git clone https://github.com/covalenthq/ewm-das
 ```
@@ -29,12 +29,14 @@ cd ewm-das
 ```
 nano Dockerfile.lc .
 ```
-```
 Cari bagian 
+```
+
 # Checkout the specific version v0.29.0 ganti
 RUN git checkout v0.29.0
-
-ganti 
+```
+ganti
+```
 # Checkout the specific version v0.30.0 ganti
 RUN git checkout v0.30.0
 ```
