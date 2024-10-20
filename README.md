@@ -31,10 +31,6 @@ cd ewm-das
 ```
 
 ```
-cd ewm-das
-```
-
-```
 nano Dockerfile.lc .
 ```
 # Cari bagian 
