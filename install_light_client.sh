@@ -16,9 +16,6 @@ fi
 docker stop light-client 2>/dev/null
 docker rm light-client 2>/dev/null
 
-# Remove unused Docker resources
-docker system prune -a -f
-
 # Remove the existing ewm-das directory if it exists
 rm -rf ewm-das
 
