@@ -1,4 +1,14 @@
 # Covalent
+#Otomastis
+```
+curl -O https://raw.githubusercontent.com/KaelVNode/Covalent/main/install_light_client.sh
+```
+```
+chmod +x install_light_client.sh
+```
+```
+./install_light_client.sh
+```
 
 # Hapus Instalan lama
 ```
