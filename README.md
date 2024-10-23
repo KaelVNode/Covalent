@@ -10,7 +10,7 @@ chmod +x install_light_client.sh
 ./install_light_client.sh
 ```
 
-# Hapus Instalan lama
+# Manual
 ```
 docker stop light-client && docker rm light-client
 ```
