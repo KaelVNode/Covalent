@@ -1,5 +1,5 @@
 # Covalent
-#Otomastis
+# Otomastis
 ```
 curl -O https://raw.githubusercontent.com/KaelVNode/Covalent/main/install_light_client.sh
 ```
