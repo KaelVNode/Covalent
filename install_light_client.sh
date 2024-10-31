@@ -31,18 +31,11 @@ if ! command -v docker &> /dev/null; then
     exit 1
 fi
 
-# Stop and remove specific containers if they exist
-for i in $(seq 3 5); do
-    if docker ps -q -f name=light-client-$i | grep -q .; then
-        echo "Stopping and removing existing container: light-client-$i"
-        docker stop light-client-$i && docker rm light-client-$i
-    elif docker ps -aq -f name=light-client-$i | grep -q .; then
-        echo "Container light-client-$i exists but is not running. Removing it."
-        docker rm light-client-$i
-    else
-        echo "Container light-client-$i does not exist, skipping."
-    fi
-done
+# Prompt for PRIVATE_KEY
+if [ -z "$PRIVATE_KEY" ]; then
+    echo "PRIVATE_KEY not set. Please enter it now."
+    prompt_private_key
+fi
 
 # Prompt user for the number of light-client containers to run
 read -p "How many light-client containers do you want to run (1-10)? " NUM_LIGHT_CLIENTS
@@ -53,15 +46,23 @@ if ! [[ "$NUM_LIGHT_CLIENTS" =~ ^[1-9][0-9]?$ ]] || [ "$NUM_LIGHT_CLIENTS" -gt 1
     exit 1
 fi
 
-# Check for PRIVATE_KEY
-if [ -z "$PRIVATE_KEY" ]; then
-    echo "PRIVATE_KEY not set. Please enter it now."
-    prompt_private_key
-fi
-
 # Function to stop and remove existing containers
 cleanup_containers() {
-    for i in $(seq 1 10); do  # Check for containers 1 to 10
+    # Stop and remove light-client-1 to light-client-5
+    for i in $(seq 1 5); do
+        if docker ps -q -f name=light-client-$i | grep -q .; then
+            echo "Stopping and removing existing container: light-client-$i"
+            docker stop light-client-$i && docker rm light-client-$i
+        elif docker ps -aq -f name=light-client-$i | grep -q .; then
+            echo "Container light-client-$i exists but is not running. Removing it."
+            docker rm light-client-$i
+        else
+            echo "Container light-client-$i does not exist, skipping."
+        fi
+    done
+
+    # Stop and remove containers based on user input
+    for i in $(seq 6 10); do
         if [ "$i" -le "$NUM_LIGHT_CLIENTS" ]; then
             if docker ps -q -f name=light-client-$i | grep -q .; then
                 echo "Stopping and removing existing container: light-client-$i"
