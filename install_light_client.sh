@@ -10,9 +10,9 @@ echo -e "\e[1;32m
  /$$  \ $$ /$$__  $$ /$$__  $$| $$  | $$| $$  | $$| $$  | $$
 |  $$$$$$/|  $$$$$$$|  $$$$$$$| $$  | $$|  $$$$$$$|  $$$$$$$
  \______/  \_______/ \_______/|__/  |__/ \_______/ \____  $$
-                                                   /$$  | $$
-                                                  |  $$$$$$/
-                                                   \______/ 
+                                                   /$$  | $$ 
+                                                  |  $$$$$$/ 
+                                                   \______/  
 "
 
 # Function to prompt for private key input
@@ -61,6 +61,8 @@ done
 if [ -d "ewm-das" ]; then
     echo "Removing existing ewm-das directory."
     rm -rf ewm-das
+else
+    echo "ewm-das directory does not exist, skipping removal."
 fi
 
 # Clone the latest version of ewm-das from GitHub
