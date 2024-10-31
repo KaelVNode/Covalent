@@ -6,10 +6,10 @@ echo -e "\e[1;32m
  /$$__  $$                                    | $$          
 | $$  \__/  /$$$$$$   /$$$$$$  /$$$$$$$   /$$$$$$$ /$$   /$$
 |  $$$$$$  |____  $$ |____  $$| $$__  $$ /$$__  $$| $$  | $$
- \____  $$  /$$$$$$$  /$$$$$$$| $$  \ $$| $$  | $$| $$  | $$
- /$$  \ $$ /$$__  $$ /$$__  $$| $$  | $$| $$  | $$| $$  | $$
+ \____  $$  /$$$$$$$  /$$$$$$$| $$  \ $$| $$  | $$| $$  | $$ 
+ /$$  \ $$ /$$__  $$ /$$__  $$| $$  | $$| $$  | $$| $$  | $$ 
 |  $$$$$$/|  $$$$$$$|  $$$$$$$| $$  | $$|  $$$$$$$|  $$$$$$$
- \______/  \_______/ \_______/|__/  |__/ \_______/ \____  $$
+ \______/  \_______/ \_______/|__/  |__/ \_______/ \____  $$ 
                                                    /$$  | $$ 
                                                   |  $$$$$$/ 
                                                    \______/  
@@ -25,7 +25,7 @@ prompt_private_key() {
     fi
 }
 
-# Check if the user has Docker access
+# Check if Docker is installed
 if ! command -v docker &> /dev/null; then
     echo "Docker is not installed or not in the PATH."
     exit 1
@@ -40,13 +40,13 @@ if ! [[ "$NUM_LIGHT_CLIENTS" =~ ^[1-9][0-9]?$ ]] || [ "$NUM_LIGHT_CLIENTS" -gt 1
     exit 1
 fi
 
-# Check if PRIVATE_KEY is provided as an environment variable
+# Check for PRIVATE_KEY
 if [ -z "$PRIVATE_KEY" ]; then
     echo "PRIVATE_KEY not set. Please enter it now."
     prompt_private_key
 fi
 
-# Stop and remove existing light-client containers if they exist
+# Stop and remove existing light-client containers
 for i in $(seq 1 "$NUM_LIGHT_CLIENTS"); do
     if docker ps -q -f name=light-client-$i | grep -q .; then
         echo "Stopping and removing existing container: light-client-$i"
@@ -57,7 +57,7 @@ for i in $(seq 1 "$NUM_LIGHT_CLIENTS"); do
     fi
 done
 
-# Remove the existing ewm-das directory if it exists
+# Remove existing ewm-das directory if it exists
 if [ -d "ewm-das" ]; then
     echo "Removing existing ewm-das directory."
     rm -rf ewm-das
@@ -82,7 +82,7 @@ if ! docker build -t covalent/light-client -f Dockerfile.lc .; then
     exit 1
 fi
 
-# Run the specified number of Docker containers with different names
+# Run the specified number of Docker containers
 for i in $(seq 1 "$NUM_LIGHT_CLIENTS"); do
     echo "Starting light-client-$i..."
     if ! docker run -d --restart always --name light-client-$i -e PRIVATE_KEY="$PRIVATE_KEY" covalent/light-client; then
@@ -91,10 +91,8 @@ for i in $(seq 1 "$NUM_LIGHT_CLIENTS"); do
     fi
 done
 
-# Show the logs of all running containers
-for i in $(seq 1 "$NUM_LIGHT_CLIENTS"); do
-    echo "Logs for light-client-$i:"
-    docker logs -f light-client-$i &
-done
+# List all Docker containers
+echo "Listing all Docker containers:"
+docker ps -a
 
 wait
