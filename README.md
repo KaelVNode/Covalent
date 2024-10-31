@@ -13,5 +13,6 @@ cek logs
 ```
 dokcer logs -f light-client
 ```
-change light-client-1 ,light-client-2 ...
+change light-client-1 ,light-client-2 dll
+
 
