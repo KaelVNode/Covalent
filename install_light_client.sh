@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# ASCII Art
+# ASCII Art for display
 echo -e "\e[1;32m
  /$$$$$$                                      /$$          
  /$$__  $$                                    | $$          
@@ -13,7 +13,7 @@ echo -e "\e[1;32m
                                                    /$$  | $$
                                                   |  $$$$$$/
                                                    \______/ 
-\e[0m"
+"
 
 # Function to prompt for private key input
 prompt_private_key() {
@@ -48,10 +48,12 @@ fi
 
 # Stop and remove existing light-client containers if they exist
 for i in $(seq 1 "$NUM_LIGHT_CLIENTS"); do
-    if docker ps -q -f name=light-client-$i; then
+    if docker ps -q -f name=light-client-$i | grep -q .; then
         echo "Stopping and removing existing container: light-client-$i"
         docker stop light-client-$i
         docker rm light-client-$i
+    else
+        echo "Container light-client-$i does not exist, skipping."
     fi
 done
 
